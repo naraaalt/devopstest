@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-        }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
@@ -20,7 +16,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 8081:80 my-html-project'
+                    sh 'docker run -d -p 8081:80 -v $(pwd):/usr/share/nginx/html my-html-project'
                 }
             }
         }
